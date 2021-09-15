@@ -12,15 +12,28 @@
         <!--List of artists-->
         <Frame WidthRequest="175" BackgroundColor="Transparent" HeightRequest="200" HorizontalOptions="StartAndExpand"  Padding="0">
             <StackLayout  VerticalOptions="FillAndExpand" HorizontalOptions="Fill" >
-                <StackLayout BackgroundColor="Brown" VerticalOptions="FillAndExpand" >
-                    <Label Text="logo" TextColor="White" Margin="10,0,0,0" VerticalOptions="Start" HorizontalOptions="Start"/>
-                    <StackLayout Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="EndAndExpand">
-                        <BoxView BackgroundColor="Yellow" WidthRequest="7.5" />
-                        <Label Text="Jay Chou Mix" TextColor="#fefefe" FontSize="22" Margin="10,0,0,0" />
+                <Grid BackgroundColor="AliceBlue">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Source="https://bit.ly/2XlG9TR" Aspect="AspectFill"/>
+                    <Label Grid.Row="0" Grid.Column="0" Text="logo" TextColor="White" Margin="10,0,0,0" VerticalOptions="Start" HorizontalOptions="Start"/>
+
+                    <StackLayout Orientation="Vertical" Grid.Row="3" Grid.Column="0" Margin="0,0,0,0" >
+                        <StackLayout  Orientation="Horizontal" HorizontalOptions="Start" Margin="0,0,0,0">
+                            <BoxView BackgroundColor="Yellow" HeightRequest="1" WidthRequest="7.5" />
+                            <Label Text="Jay Chou Mix" TextColor="#fefefe" FontSize="20" Margin="5,0,0,0" />
+                        </StackLayout>
+                        <BoxView BackgroundColor="Yellow" HeightRequest="7.5" Margin="0,0,0,0"/>
                     </StackLayout>
-                    <BoxView BackgroundColor="Yellow" HeightRequest="7.5" Margin="0,5,0,0"/>
-                </StackLayout>
-                <Label  Text="A-Mei Chang, JJ Lin Karen Mok and more" MaxLines="2" LineBreakMode="TailTruncation" TextColor="#fefefe" FontSize="16" VerticalOptions="End" Margin="0,-5,0,0" />
+                </Grid>
+                <Label  Text="A-Mei Chang, JJ Lin Karen Mok and more" MaxLines="2" LineBreakMode="TailTruncation" TextColor="#fefefe" FontSize="16" VerticalOptions="End" Margin="0,0,0,0" />
             </StackLayout>
         </Frame>
     </StackLayout>
