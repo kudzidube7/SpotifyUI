@@ -1,41 +1,195 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:SpotifyUI.Fonts" xmlns:models="clr-namespace:SpotifyUI.Models"
+             x:Name="MyPage"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
              x:Class="SpotifyUI.MainPage">
 
     <StackLayout BackgroundColor="#1d2222">
         <!--Settings stacklayout-->
-        <StackLayout Orientation="Horizontal" Margin="10,20,0,0">
-           <Label Text="To get you started" TextColor="#fefefe" FontSize="26"/>
-       </StackLayout>
-
+        <StackLayout Orientation="Horizontal" Margin="10,20,0,20">
+           <Label Text="To get you started" FontAttributes="Bold" TextColor="#fefefe" FontSize="28"/>
+            <Image VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" Margin="0,0,20,0">
+                <Image.Source>
+                    <FontImageSource Color="White" Size="30" FontFamily="MdIcons" Glyph="{x:Static local:FontIcons.ClockOutline}"/>
+                </Image.Source>
+            </Image>
+            <Image VerticalOptions="CenterAndExpand" HorizontalOptions="End" Margin="0,0,10,0">
+                <Image.Source>
+                    <FontImageSource Color="White" Size="30" FontFamily="MdIcons" Glyph="{x:Static local:FontIcons.CogOutline}"/>
+                </Image.Source>
+            </Image>
+        </StackLayout>
+        
         <!--List of artists-->
-        <Frame WidthRequest="175" BackgroundColor="Transparent" HeightRequest="200" HorizontalOptions="StartAndExpand"  Padding="0">
-            <StackLayout  VerticalOptions="FillAndExpand" HorizontalOptions="Fill" >
-                <Grid BackgroundColor="AliceBlue">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Source="https://bit.ly/2XlG9TR" Aspect="AspectFill"/>
-                    <Label Grid.Row="0" Grid.Column="0" Text="logo" TextColor="White" Margin="10,0,0,0" VerticalOptions="Start" HorizontalOptions="Start"/>
-
-                    <StackLayout Orientation="Vertical" Grid.Row="3" Grid.Column="0" Margin="0,0,0,0" >
-                        <StackLayout  Orientation="Horizontal" HorizontalOptions="Start" Margin="0,0,0,0">
-                            <BoxView BackgroundColor="Yellow" HeightRequest="1" WidthRequest="7.5" />
-                            <Label Text="Jay Chou Mix" TextColor="#fefefe" FontSize="20" Margin="5,0,0,0" />
-                        </StackLayout>
-                        <BoxView BackgroundColor="Yellow" HeightRequest="7.5" Margin="0,0,0,0"/>
-                    </StackLayout>
-                </Grid>
-                <Label  Text="A-Mei Chang, JJ Lin Karen Mok and more" MaxLines="2" LineBreakMode="TailTruncation" TextColor="#fefefe" FontSize="16" VerticalOptions="End" Margin="0,0,0,0" />
+        <ScrollView Orientation="Horizontal"  >
+            <StackLayout Orientation="Horizontal" Spacing="25" BindableLayout.ItemsSource="{Binding Artists}" >
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Frame WidthRequest="175" BackgroundColor="Transparent" HeightRequest="200" HorizontalOptions="StartAndExpand"  Padding="0"  >
+                            <StackLayout  VerticalOptions="FillAndExpand" HorizontalOptions="Fill"  >
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Source="{Binding ImageUrl}" Aspect="AspectFill"/>
+                                    <Image Grid.Row="0" Grid.Column="0" Margin="5,5,0,0" VerticalOptions="Start" HorizontalOptions="Start">
+                                        <Image.Source>
+                                            <FontImageSource Color="White" Size="20"  FontFamily="MdIcons" Glyph="{x:Static local:FontIcons.Spotify}"/>
+                                        </Image.Source>
+                                    </Image>
+                                    <StackLayout Orientation="Vertical" Grid.Row="3" Grid.Column="0" Margin="0,0,0,0" >
+                                        <StackLayout  Orientation="Horizontal" HorizontalOptions="Start" Margin="0,0,0,0">
+                                            <BoxView BackgroundColor="{Binding AlbumColor}" HeightRequest="1" WidthRequest="7.5" />
+                                            <Label Text="{Binding Name }" TextColor="#fefefe" FontSize="20" Margin="5,0,0,0" />
+                                        </StackLayout>
+                                        <BoxView BackgroundColor="{Binding AlbumColor}" HeightRequest="7.5" Margin="0,0,0,0"/>
+                                    </StackLayout>
+                                </Grid>
+                                <Label  Text="{Binding Contributors }" MaxLines="2" LineBreakMode="TailTruncation" TextColor="#fefefe" FontSize="16" VerticalOptions="End" Margin="0,0,0,0" />
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
             </StackLayout>
-        </Frame>
+        </ScrollView>
+
+        <!--Try Something else-->
+        <StackLayout VerticalOptions="Start" Margin="10,10,0,0">
+            <Label Text="Try something else" FontAttributes="Bold" TextColor="#fefefe" FontSize="28"/>
+        </StackLayout>
+
+        <!--List of something else-->
+        <ScrollView Orientation="Horizontal"  >
+            <StackLayout Orientation="Horizontal" Spacing="25" BindableLayout.ItemsSource="{Binding SomethingNew}" >
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Frame WidthRequest="175" BackgroundColor="Transparent" HeightRequest="175" HorizontalOptions="StartAndExpand"  Padding="0"  >
+                            <StackLayout  VerticalOptions="FillAndExpand" HorizontalOptions="Fill"  >
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="4" Source="{Binding ImageUrl}" Aspect="AspectFill"/>
+                                    <Image Grid.Row="0" Grid.Column="0" Margin="5,5,0,0" VerticalOptions="Start" HorizontalOptions="Start">
+                                        <Image.Source>
+                                            <FontImageSource Color="White" Size="20"  FontFamily="MdIcons" Glyph="{x:Static local:FontIcons.Spotify}"/>
+                                        </Image.Source>
+                                    </Image>
+                                    <Label Grid.Row="1" Grid.Column="0" Text="{Binding Name }" HorizontalOptions="Center" TextColor="#fefefe" FontSize="20" Margin="5,0,0,0" />
+                                </Grid>
+                                <Label  Text="{Binding Contributors }" MaxLines="2" LineBreakMode="TailTruncation" TextColor="#fefefe" FontSize="16" VerticalOptions="End" Margin="0,0,0,0" />
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </StackLayout>
+        </ScrollView>
+        
+        <!--More like section-->
+        <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" Margin="10,20,0,0">
+            <xct:AvatarView Size="75" HorizontalOptions="Start"  Source="https://cutt.ly/HRud7vq" />
+            <Label VerticalOptions="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="MORE LIKE &#x0a;" TextColor="#7a7a7a" FontSize="12"/>
+                        <Span Text="Jay Chou" TextColor="#fefefe" FontSize="20" FontAttributes="Bold"/>
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </StackLayout>
+
+        <StackLayout VerticalOptions="EndAndExpand" Spacing="5">
+            <!--Play/Love section-->
+            <StackLayout Orientation="Horizontal" VerticalOptions="EndAndExpand" BackgroundColor="#292929">
+                
+                <Image Source="https://cutt.ly/QRufrwI" Aspect="AspectFill" HeightRequest="75" WidthRequest="75"/>
+                
+                <Label VerticalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="You got soul &#x0a;" TextColor="#d0d0d0"  FontSize="16"/>
+                            <Span Text="Jay Chou" TextColor="#646464" FontSize="20" FontAttributes="Bold"/>
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+
+                <Image VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" Margin="0,0,10,0">
+                    <Image.Source>
+                        <FontImageSource Color="White" Size="25" FontFamily="MdIcons" Glyph="{x:Static local:FontIcons.MonitorSpeaker}"/>
+                    </Image.Source>
+                </Image>
+
+                <Image VerticalOptions="CenterAndExpand" HorizontalOptions="End" Margin="0,0,0,0">
+                    <Image.Source>
+                        <FontImageSource Color="White" Size="25" FontFamily="MdIcons" Glyph="{x:Static local:FontIcons.HeartOutline}"/>
+                    </Image.Source>
+                </Image>
+            
+                <Image VerticalOptions="CenterAndExpand" HorizontalOptions="End" Margin="0,0,10,0">
+                    <Image.Source>
+                        <FontImageSource Color="White" Size="35" FontFamily="MdIcons" Glyph="{x:Static local:FontIcons.Play}"/>
+                    </Image.Source>
+                </Image>
+                
+            </StackLayout>
+
+            <!--Bottom App bar-->
+            <StackLayout Orientation="Horizontal" VerticalOptions="StartAndExpand" BackgroundColor="#292929" >
+
+                <StackLayout HorizontalOptions="Start" Margin="20,0,0,0">
+                    <Image VerticalOptions="CenterAndExpand" >
+                        <Image.Source>
+                            <FontImageSource Color="White" Size="25" FontFamily="MdIcons" Glyph="{x:Static local:FontIcons.Home}"/>
+                        </Image.Source>
+                    </Image>
+                    <Label Text="Home" TextColor="White"/>
+                </StackLayout>
+
+                <StackLayout HorizontalOptions="CenterAndExpand" Margin="30,0,0,0">
+                    <Image VerticalOptions="CenterAndExpand"  Margin="0,0,10,0">
+                        <Image.Source>
+                            <FontImageSource Color="White" Size="25" FontFamily="MdIcons" Glyph="{x:Static local:FontIcons.Magnify}"/>
+                        </Image.Source>
+                    </Image>
+                    <Label Text="Search" TextColor="White"/>
+                </StackLayout>
+
+                <StackLayout HorizontalOptions="CenterAndExpand" Margin="0,0,40,0">
+                    <Image VerticalOptions="CenterAndExpand" HorizontalOptions="End" Margin="0,0,10,0">
+                        <Image.Source>
+                            <FontImageSource Color="White" Size="35" FontFamily="MdIcons" Glyph="{x:Static local:FontIcons.Bookshelf}"/>
+                        </Image.Source>
+                    </Image>
+                    <Label Text="Your library" TextColor="White"/>
+                </StackLayout>
+
+                <StackLayout HorizontalOptions="Center" Margin="0,0,20,0">
+                    <Image VerticalOptions="CenterAndExpand" HorizontalOptions="End" Margin="0,0,10,0">
+                        <Image.Source>
+                            <FontImageSource Color="White" Size="35" FontFamily="MdIcons" Glyph="{x:Static local:FontIcons.Spotify}"/>
+                        </Image.Source>
+                    </Image>
+                    <Label Text="Premium" TextColor="White"/>
+                </StackLayout>
+
+            </StackLayout>
+
+        </StackLayout>
+
     </StackLayout>
 
 </ContentPage>
