@@ -14,6 +14,7 @@ namespace SpotifyUI
             BindingContext = this;
         }
 
+        #region Public Properties
         private ObservableCollection<Artist> _artists;
         public ObservableCollection<Artist> Artists
         {
@@ -34,8 +35,8 @@ namespace SpotifyUI
                 _somethingNew = value;
                 OnPropertyChanged("SomethingNew");
             }
-        }
-
+        } 
+        #endregion
 
         protected override void OnAppearing()
         {
